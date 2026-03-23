@@ -230,8 +230,17 @@ function downloadPDF() {
     doc.text("Note: " + (document.getElementById("Note").value || ""), 12, y);
     doc.text("Signature: " + (document.getElementById("signature").value || ""), 105, y);
 
-    doc.save('OrderForm.pdf');
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+   if (isMobile) {
+       // Open in new tab for mobile
+       const pdfOutput = doc.output('bloburl');
+       window.open(pdfOutput, '_blank');
+   } else {
+       // Normal download for desktop
+       doc.save('OrderForm.pdf');
+   }
 }
+
 </script>
 
 </body>
